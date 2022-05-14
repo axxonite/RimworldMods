@@ -7,7 +7,7 @@
     <description>Study the famous MiningCo. MiSoTech* to develop a mineral sonar able to scan and detect ore pockets in the heart of mountains.
     
 * MiSoTech: Mineral Sonar Technology</description>
-    <baseCost>1600</baseCost>
+    <baseCost>2</baseCost>
     <techLevel>Industrial</techLevel>
     <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
     <prerequisites>

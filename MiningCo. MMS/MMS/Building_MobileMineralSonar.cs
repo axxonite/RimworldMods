@@ -21,12 +21,12 @@ namespace MobileMineralSonar
     class Building_MobileMineralSonar : Building
     {
         // ===================== Variables =====================
-        public const int baseMaxScanRange = 30;
-        public const int enhancedMaxScanRange = 50;
+        public const int baseMaxScanRange = 3000;
+        public const int enhancedMaxScanRange = 5000;
         public static int maxScanRange = baseMaxScanRange;
 
-        public const float baseDetectionChance = 0.2f;
-        public const float enhancedDetectionChance = 0.4f;
+        public const float baseDetectionChance = 1.0f;
+        public const float enhancedDetectionChance = 1.0f;
         public static float detectionChance = baseDetectionChance;
 
         public int scanRange = 1;
@@ -163,18 +163,18 @@ namespace MobileMineralSonar
                 return;
             }
 
-            if ((Find.TickManager.TicksGame % GenTicks.TicksPerRealSecond) == 0)
+            if ((Find.TickManager.TicksGame % 60) == 0) //GenTicks.TicksPerRealSecond) == 0)
             {
                 // Increment the scan progress according to the available power input.
                 if (powerComp.PowerOn)
                 {
-                    scanProgress += 5 * (int)GenTicks.TicksPerRealSecond;
+                    scanProgress += 500 * (int)GenTicks.TicksPerRealSecond;
                 }
                 else
                 {
-                    scanProgress += (int)GenTicks.TicksPerRealSecond;
+                    scanProgress += 500 * (int)GenTicks.TicksPerRealSecond;
                 }
-                if (scanProgress >= (this.scanRange * scanProgressThresholdPerCell))
+                if (true) //scanProgress >= (this.scanRange * scanProgressThresholdPerCell))
                 {
                     foreach (ThingDef detectedDef in detectedDefList)
                     {
@@ -197,8 +197,8 @@ namespace MobileMineralSonar
             IEnumerable<Thing> thingsInTheArea = this.Map.listerThings.ThingsOfDef(thingDefParameter);
             if (thingsInTheArea != null)
             {
-                IEnumerable<Thing> thingsAtScanRange = thingsInTheArea.Where(thing => thing.Position.InHorDistOf(this.Position, scanRange)
-                    && (thing.Position.InHorDistOf(this.Position, scanRange - 1) == false));
+                IEnumerable<Thing> thingsAtScanRange = thingsInTheArea; //.Where(thing => thing.Position.InHorDistOf(this.Position, scanRange)
+                    //&& (thing.Position.InHorDistOf(this.Position, scanRange - 1) == false));
                 // Remove the fog on those mineral blocks.
                 foreach (Thing thing in thingsAtScanRange)
                 {
